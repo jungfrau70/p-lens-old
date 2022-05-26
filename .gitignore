@@ -1,0 +1,7 @@
+venv/*
+venv/*/*
+venv/*/*/*
+kafka/*
+kafka/*/*
+kafka/*/*/*
+kafka/*/*/*/*
