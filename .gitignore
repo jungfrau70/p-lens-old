@@ -1,7 +1,7 @@
 venv/*
 venv/*/*
 venv/*/*/*
-kafka/*
-kafka/*/*
-kafka/*/*/*
-kafka/*/*/*/*
+kafka/data/
+kafka/data/*
+kafka/data/*/*
+kafka/data/*/*/*
