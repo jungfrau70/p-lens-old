@@ -42,7 +42,7 @@ docker inspect kafdrop
 ## Create New Topic
 docker exec -it kafka1 kafka-topics --bootstrap-server=kafka1:19091 \
                                     --create \
-                                    --topic first-cluster-topic \
+                                    --topic telegraf-kr1-metric \
                                     --partitions 1 \
                                     --replication-factor 1
 

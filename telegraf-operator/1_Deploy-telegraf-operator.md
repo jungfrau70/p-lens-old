@@ -1,0 +1,1 @@
+helm upgrade --install telegraf -f values.yaml influxdata/telegraf-operator
