@@ -30,7 +30,7 @@ ff02::2 ip6-allrouters
 172.18.0.84     kafdrop
 EOF
 
-## Add hosts
+<!-- ## Add hosts
 cat <<EOF | tee /etc/hosts
 127.0.0.1       localhost
 127.0.1.1       ubuntu
@@ -47,7 +47,7 @@ ff02::2 ip6-allrouters
 172.18.0.82     kafka2
 172.18.0.83     kafka3
 172.18.0.84     kafdrop
-EOF
+EOF -->
 
 ## Ping Test
 ping kafka1

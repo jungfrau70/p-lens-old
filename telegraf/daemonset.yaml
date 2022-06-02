@@ -114,7 +114,7 @@ data:
     ##################################################################
     [[outputs.kafka]]
     # URLs of kafka brokers 
-    brokers = ["kafka1:19091","kafka2:19092","kafka3:19093"] # EDIT THIS LINE
+    brokers = ["kafka1:9092","kafka2:9093","kafka3:9094"] # EDIT THIS LINE
     # Kafka topic for producer messages
     topic = "telegraf-kr1-metric" 
     client_id = "golangsarama__1.18.0__serverinfra__telegraf"

@@ -9,14 +9,14 @@ cd $WORKDIR
 #########################################################################################
 
 ## Create Topic, telegraf-kr1-metric
-docker exec -it kafka1 kafka-topics --bootstrap-server=kafka1:19091 \
+docker exec -it kafka1 kafka-topics --bootstrap-server=kafka1:9092 \
                                     --create \
                                     --topic telegraf-kr1-metric \
                                     --partitions 2 \
                                     --replication-factor 2
 
 ## Create Topic, telegraf-kr2-metric
-docker exec -it kafka1 kafka-topics --bootstrap-server=kafka1:19091 \
+docker exec -it kafka1 kafka-topics --bootstrap-server=kafka1:9092 \
                                     --create \
                                     --topic telegraf-kr2-metric \
                                     --partitions 2 \
