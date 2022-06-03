@@ -5,7 +5,7 @@ import json
 KR1_TOPIC = "telegraf-kr1-metric"
 KR2_TOPIC = "telegraf-kr2-metric"
 
-brokers = ["kafka1:19091", "kafka2:19092", "kafka3:19093"]
+brokers = ["10.11.76.177:9092", "10.11.76.177:9093", "10.11.76.177:9094"]
 
 consumer = KafkaConsumer(KR1_TOPIC, bootstrap_servers=brokers)
 producer = KafkaProducer(bootstrap_servers=brokers)
