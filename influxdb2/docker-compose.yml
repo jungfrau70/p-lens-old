@@ -1,24 +1,5 @@
 version: '3.6'
 services:
-  grafana:
-    hostname: grafana  
-    container_name: grafana
-    image: grafana/grafana:8.1.2
-    ports:
-      - 3000:3000
-    privileged: true
-    environment:
-      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
-      - GF_SECURITY_ADMIN_USER="coc"
-      - GF_SECURITY_ADMIN_PASSWORD="TldhTl1!"
-    volumes:
-      - ./data/grafana-data:/var/lib/grafana
-    restart: always
-    depends_on:
-      - influxdb2
-    networks:
-      netgroup:
-        ipv4_address: 172.18.0.91
   influxdb2:
     hostname: influxdb2
     container_name: influxdb2
@@ -26,18 +7,6 @@ services:
     ports:
       - 8086:8086
     volumes:
-      - ./data/influxdb2-data:/var/lib/influxdb2
-      - ./data/influxdb2-config:/etc/influxdb2
+      - /docker/influxdb2-data:/var/lib/influxdb2
+      - /docker/influxdb2-config:/etc/influxdb2
     restart: always
-    networks:
-      netgroup:
-        ipv4_address: 172.18.0.92        
-networks:
-  netgroup:
-    name: netgroup
-    driver: bridge
-    attachable: true
-    ipam:
-      config:
-        - subnet: 172.18.0.0/16
-          gateway: 172.18.0.1
