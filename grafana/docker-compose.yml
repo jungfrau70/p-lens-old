@@ -14,3 +14,4 @@ services:
     volumes:
       - /docker/grafana-data:/var/lib/grafana
     restart: always
+
