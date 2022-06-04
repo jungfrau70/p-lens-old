@@ -99,7 +99,7 @@ docker-compose -f docker-compose-ingestion.yml up -d
 # 7. Open Grafana
 #########################################################################################
 
-## userid: admin / TldhTl1!
+## userid: admin / Tl******
 http://localhost:3000/
 
 
