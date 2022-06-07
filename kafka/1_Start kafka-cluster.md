@@ -60,7 +60,7 @@ ping kafka1
 docker-compose rm -svf
 
 or 
-containers=`docker ps -a | grep -e 'kafka\|zoo' | awk '{print $1}'`
+containers=`docker ps -a | grep -e 'kaf\|zoo\|telegraf' | awk '{print $1}'`
 for container in $containers
 do
     docker stop $container
