@@ -11,7 +11,10 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888
-
+    restart: always
+    volumes:
+      - /docker/zk1-data:/var/lib/zookeeper/data
+      - /docker/zk1-txn-logs:/var/lib/zookeeper/log
   zoo2:
     image: confluentinc/cp-zookeeper:7.1.1
     hostname: zoo2
@@ -22,7 +25,9 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2182
       ZOOKEEPER_SERVER_ID: 2
       ZOOKEEPER_SERVERS: zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888
-
+    volumes:
+      - /docker/zk2-data:/var/lib/zookeeper/data
+      - /docker/zk2-txn-logs:/var/lib/zookeeper/log
   zoo3:
     image: confluentinc/cp-zookeeper:7.1.1
     hostname: zoo3
@@ -33,8 +38,9 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2183
       ZOOKEEPER_SERVER_ID: 3
       ZOOKEEPER_SERVERS: zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888
-
-
+    volumes:
+      - /docker/zk3-data:/var/lib/zookeeper/data
+      - /docker/zk3-txn-logs:/var/lib/zookeeper/log
 
   kafka1:
     image: confluentinc/cp-kafka:7.1.1
@@ -55,6 +61,9 @@ services:
       - zoo1
       - zoo2
       - zoo3
+    restart: always
+    volumes:
+      - /docker/kafka1-data:/var/lib/kafka/data
 
   kafka2:
     image: confluentinc/cp-kafka:7.1.1
@@ -75,6 +84,9 @@ services:
       - zoo1
       - zoo2
       - zoo3
+    restart: always
+    volumes:
+      - /docker/kafka2-data:/var/lib/kafka/data
 
   kafka3:
     image: confluentinc/cp-kafka:7.1.1
@@ -95,3 +107,33 @@ services:
       - zoo1
       - zoo2
       - zoo3
+    restart: always
+    volumes:
+      - /docker/kafka3-data:/var/lib/kafka/data
+
+  kafka-schema-registry:
+    image: confluentinc/cp-schema-registry:7.1.1
+    hostname: kafka-schema-registry
+    container_name: kafka-schema-registry
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+      - kafka1
+      - kafka2
+      - kafka3
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: kafka-schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka1:19092,PLAINTEXT://kafka2:19093,PLAINTEXT://kafka3:19094'
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081      
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    depends_on:
+      - kafka-schema-registry
+    ports:
+      - 9000:9000
+    environment:
+      KAFKA_BROKERCONNECT: 'PLAINTEXT://kafka1:19092,PLAINTEXT://kafka2:19093,PLAINTEXT://kafka3:19094'
