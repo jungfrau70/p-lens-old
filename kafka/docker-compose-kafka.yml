@@ -64,7 +64,6 @@ services:
     restart: always
     volumes:
       - /docker/kafka1-data:/var/lib/kafka/data
-
   kafka2:
     image: confluentinc/cp-kafka:7.1.1
     hostname: kafka2
@@ -87,7 +86,6 @@ services:
     restart: always
     volumes:
       - /docker/kafka2-data:/var/lib/kafka/data
-
   kafka3:
     image: confluentinc/cp-kafka:7.1.1
     hostname: kafka3
@@ -128,8 +126,11 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: kafka-schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka1:19092,PLAINTEXT://kafka2:19093,PLAINTEXT://kafka3:19094'
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081      
+    restart: always
 
   kafdrop:
+    hostname: kafdrop
+    container_name: kafdrop
     image: obsidiandynamics/kafdrop:latest
     depends_on:
       - kafka-schema-registry
@@ -137,3 +138,4 @@ services:
       - 9000:9000
     environment:
       KAFKA_BROKERCONNECT: 'PLAINTEXT://kafka1:19092,PLAINTEXT://kafka2:19093,PLAINTEXT://kafka3:19094'
+    restart: always      
