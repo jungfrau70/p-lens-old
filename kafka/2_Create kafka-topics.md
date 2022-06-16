@@ -1,7 +1,7 @@
 # Kafka - 분산데이터스트리밍 플랫폼
 
 
-export WORKDIR='/root/PySpark/workspace/3_Kafka'
+export WORKDIR='/root/p-lens/kafka'
 cd $WORKDIR
 
 #########################################################################################
@@ -9,18 +9,22 @@ cd $WORKDIR
 #########################################################################################
 
 ## Create Topic, telegraf-kr1-metric
-docker exec -it kafka1 kafka-topics --bootstrap-server=kafka1:9092 \
+docker exec -it kafka1 kafka-topics --bootstrap-server=localhost:9092,localhost:9093,localhost:9094 \
                                     --create \
                                     --topic telegraf-kr1-metric \
                                     --partitions 2 \
                                     --replication-factor 2
 
 ## Create Topic, telegraf-kr2-metric
-docker exec -it kafka1 kafka-topics --bootstrap-server=kafka1:9092 \
+docker exec -it kafka1 kafka-topics --bootstrap-server=localhost:9092,localhost:9093,localhost:9094 \
                                     --create \
-                                    --topic telegraf-kr2-metric \
+                                    --topic telegraf-kr1-metric \
                                     --partitions 2 \
                                     --replication-factor 2
+
+docker exec -it kafka1 kafka-topics --bootstrap-server=localhost:9092,localhost:9093,localhost:9094 \
+                                    --delete \
+                                    --topic telegraf-kr2-metric
 
 
 #########################################################################################
