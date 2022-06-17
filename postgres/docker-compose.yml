@@ -10,7 +10,7 @@ services:
     #   netgroup:
     #     ipv4_address: 172.18.0.14
     ports:
-    - "7432:5432"
+    - ${PG_PORT}:5432
     volumes:
       # Just specify a path and let the Engine create a volume
       #- ./db.sql:/docker-entrypoint-initdb.d/db.sql
@@ -18,8 +18,8 @@ services:
     privileged: true
     cap_add:
       - NET_ADMIN
-    env_file:
-      - postgres.env
+    # env_file:
+    #   - postgres.env
     deploy:
       resources:
         limits:
@@ -33,3 +33,14 @@ services:
 #       config:
 #         - subnet: 172.18.0.0/16
 #           gateway: 172.18.0.1
+  pgadmin:
+    image: chorss/docker-pgadmin4
+    restart: always
+    volumes:
+      - /docker/pgadmin:/data
+    ports:
+      - ${PG_ADMIN_PORT}:5050
+    depends_on:
+      - postgres
+    # env_file:
+    #   - postgres.env      
