@@ -22,6 +22,8 @@ chown 1000:1000 -R /docker
 ## Start services
 docker-compose up -d
 
+## ID/PASSWORD
+admin / admin
 
 #########################################################################################
 # 3. Stop PostgreSQL
